@@ -31,11 +31,13 @@ public class MainActivity extends AppCompatActivity {
     private static List<Map<String,Object>> search_list, repo_list;
     private static ProgressBar search_progress, repo_progress;
     private GithubData githubData;
+    private int mode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mode = 1;//搜索界面为1
         findView();
         initData();
         setListener();
@@ -48,10 +50,10 @@ public class MainActivity extends AppCompatActivity {
          * 注意,返回值表示:是否能完全处理该事件,true表示可以
          * 若返回false,表示需要继续传播该事件.
          */
-        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK) && mode == 2) {
             //System.out.println("按下了back键   onKeyDown()");
             setVisibility("search");
-            return true;
+            return true;//仅repo界面拦截返回键
         }
         else {
             return super.onKeyDown(keyCode, event);
@@ -78,12 +80,14 @@ public class MainActivity extends AppCompatActivity {
             case "repo":
                 search_layout.setVisibility(View.GONE);
                 repo_layout.setVisibility(View.VISIBLE);
+                this.mode = 2;
                 break;
             default:
             case "search":
                 search_layout.setVisibility(View.VISIBLE);
                 repo_layout.setVisibility(View.GONE);
                 search_text.setText("");
+                this.mode = 1;
                 break;
         }
     }
@@ -95,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
         //
         initSearchRecycler();
         initRepoRecycler();
+        githubData.fetchProfile("abnervictor");
     }
 
     public static void onFetchResult(Map<String,Object> profile){
