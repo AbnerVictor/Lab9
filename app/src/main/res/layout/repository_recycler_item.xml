@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="1dp"
+    android:background="@color/Gray"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:contentPadding="15dp"
+        >
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lab9"
+                android:id="@+id/repository_name"
+                android:textSize="18sp"
+                android:textColor="@color/Black"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Java"
+                android:id="@+id/language"
+                app:layout_constraintTop_toBottomOf="@id/repository_name"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:textSize="15sp"
+                android:textColor="@color/Black"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Retrofit"
+                android:id="@+id/description"
+                app:layout_constraintTop_toBottomOf="@id/language"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:textSize="15sp"
+                android:singleLine="true"
+                android:ellipsize="end"
+                />
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
+
+</android.support.constraint.ConstraintLayout>
