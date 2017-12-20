@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -140,6 +141,11 @@ public class MainActivity extends AppCompatActivity {
                 search_recycler.setVisibility(View.GONE);
                 search_progress.setVisibility(View.VISIBLE);
                 githubData.fetchProfile(keyword);
+                InputMethodManager imm =  (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                if(imm != null) {
+                    imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(),
+                            0);
+                }//自动收起键盘
             }
         });
     }
