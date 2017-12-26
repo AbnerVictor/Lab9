@@ -1,6 +1,8 @@
 package com.example.abnervictor.lab9;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -33,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private static ProgressBar search_progress, repo_progress;
     private GithubData githubData;
     private int mode;
+    private String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
          */
         if ((keyCode == KeyEvent.KEYCODE_BACK) && mode == 2) {
             //System.out.println("按下了back键   onKeyDown()");
+            Toast.makeText(MainActivity.this,"返回搜索列表",Toast.LENGTH_LONG).show();
             setVisibility("search");
             return true;//仅repo界面拦截返回键
         }
@@ -175,7 +179,8 @@ public class MainActivity extends AppCompatActivity {
                 repo_list.clear();
                 repo_commonAdapter.notifyDataSetChanged();
                 repo_progress.setVisibility(View.VISIBLE);
-                githubData.fetchRepo(search_list.get(position).get("name").toString());
+                name = search_list.get(position).get("name").toString();
+                githubData.fetchRepo(name);
                 //
             }
 
@@ -219,7 +224,11 @@ public class MainActivity extends AppCompatActivity {
             }
             @Override
             public void onLongClick(int position) {
-
+                Intent intent= new Intent();
+                intent.setAction("android.intent.action.VIEW");
+                Uri content_url = Uri.parse("http://github.com/"+name+"/"+repo_list.get(position).get("name").toString());
+                intent.setData(content_url);
+                startActivity(intent);
             }
         });
         ScaleInAnimationAdapter animationAdapter = new ScaleInAnimationAdapter(repo_commonAdapter);
